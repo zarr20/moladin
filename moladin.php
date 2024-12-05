@@ -30,7 +30,6 @@ add_action('wp_head', 'moladin_enqueue_styles');
 
 function enqueue_my_scripts()
 {
-    wp_enqueue_script('my-filter-script', get_template_directory_uri() . '/js/my-script.js', array('jquery'), '1.0', true); // Path to your JS file  
-    wp_localize_script('my-filter-script', 'moladin_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+    wp_enqueue_script('jquery-2.2.4', 'https://code.jquery.com/jquery-2.2.4.min.js', array('jquery'), '1.0', true); // Path to your JS file  
 }
 add_action('wp_enqueue_scripts', 'enqueue_my_scripts');

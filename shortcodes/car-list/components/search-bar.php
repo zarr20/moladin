@@ -5,7 +5,7 @@
 
 
 <script>
-    $(document).ready(function () {
+    window.addEventListener('DOMContentLoaded', function () {
         let debounceTimer;
 
         function debounce(func, wait) {
@@ -35,6 +35,8 @@
                 },
                 success: function (response) {
                     $('#products').html(response);
+                    page = 0;
+
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.error("AJAX request failed:", xhr.status, thrownError);
