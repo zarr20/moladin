@@ -1,6 +1,6 @@
 <?php
-if (isset($_GET['data'])) {
-    parse_str(base64_decode($_GET['data']), $data);
+if (isset($_POST['data'])) {
+    parse_str(base64_decode($_POST['data']), $data);
     // var_dump($data);
 }
 ?>
@@ -42,11 +42,11 @@ if (isset($_GET['data'])) {
     $args['meta_query'][] = $price_meta_query;
 
 
-    if (!empty($_GET['filter_category'])) {
+    if (!empty($_POST['filter_category'])) {
         $args['tax_query'][] = array(
             'taxonomy' => 'product_cat',
             'field' => 'term_id',
-            'terms' => absint(sanitize_text_field($_GET['filter_category'])),
+            'terms' => absint(sanitize_text_field($_POST['filter_category'])),
         );
     }
 

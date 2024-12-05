@@ -175,9 +175,10 @@
             window.history.pushState({ path: newUrl }, '', newUrl);
 
             $.ajax({
-                url: 'http://localhost/moladin/gwc-wp/wp-json/ajax/products',
+                url: '<?php echo admin_url('admin-ajax.php'); ?>',
                 type: 'POST',
                 data: {
+                    action: 'get_products',
                     data: encodedData,
                 },
                 success: function (response) {
