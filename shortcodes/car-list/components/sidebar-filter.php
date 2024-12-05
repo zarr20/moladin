@@ -20,22 +20,29 @@
                 <div class="px-[16px] py-[16px] border-b border-[#D1D5DB]">
                     <!-- Checkbox options -->
                     <div>
-                        <input type="checkbox" name="harga[]" value="< Rp100 Juta" /> <label>&lt; Rp100 Juta</label>
+                        <input type="checkbox" name="harga[]" data-min="0" data-max="100000000" value="< Rp100 Juta"
+                            class="price-checkbox" />
+                        <label>&lt; Rp100 Juta</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="harga[]" value="Rp100 - Rp200 Juta" /> <label>Rp100 - Rp200
-                            Juta</label>
+                        <input type="checkbox" name="harga[]" data-min="100000000" data-max="200000000"
+                            value="Rp100 - Rp200 Juta" class="price-checkbox" />
+                        <label>Rp100 - Rp200 Juta</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="harga[]" value="Rp200 - Rp300 Juta" /> <label>Rp200 - Rp300
-                            Juta</label>
+                        <input type="checkbox" name="harga[]" data-min="200000000" data-max="300000000"
+                            value="Rp200 - Rp300 Juta" class="price-checkbox" />
+                        <label>Rp200 - Rp300 Juta</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="harga[]" value="Rp300 - Rp500 Juta" /> <label>Rp300 - Rp500
-                            Juta</label>
+                        <input type="checkbox" name="harga[]" data-min="300000000" data-max="500000000"
+                            value="Rp300 - Rp500 Juta" class="price-checkbox" />
+                        <label>Rp300 - Rp500 Juta</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="harga[]" value="Rp500 Juta" /> <label>Rp500 Juta</label>
+                        <input type="checkbox" name="harga[]" data-min="500000000" data-max="" value="Rp500 Juta"
+                            class="price-checkbox" />
+                        <label>Rp500 Juta</label>
                     </div>
 
                     <!-- Range input -->
@@ -165,6 +172,24 @@
 
 <script>
     $(document).ready(function () {
+
+        $('.price-checkbox').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('.price-checkbox').not(this).prop('checked', false);
+                const min = $(this).data('min') || '';
+                const max = $(this).data('max') || '';
+                $('#min_price').val(min);
+                $('#max_price').val(max);
+            } else {
+                $('#min_price').val('');
+                $('#max_price').val('');
+            }
+        });
+
+        $('#min_price, #max_price').on('input', function () {
+            $('.price-checkbox').prop('checked', false);
+        });
+
         $('#filter-form').on('submit', function (event) {
             event.preventDefault();
             var formData = $(this).serialize();
