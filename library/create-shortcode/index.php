@@ -1,17 +1,30 @@
 <?php
-function load_shortcode($atts)
+class Moladin_Shortcode_Loader
 {
-    $atts = shortcode_atts(array(
-        'name' => '',
-    ), $atts, 'shortcode');
-    $shortcodeName = $atts['name'];
-    $customShortcode = MOLADINPLUGIN_DIR_ROOT . "shortcodes/{$shortcodeName}/index.php";
-    if (file_exists($customShortcode)) {
-        ob_start();
-        include($customShortcode);
-        return ob_get_clean();
+
+    public function __construct()
+    {
+        add_shortcode('moladin_shortcode', array($this, 'load_shortcode'));
     }
-    return;
+
+    public function load_shortcode($atts)
+    {
+        $newAtts = shortcode_atts(array(
+            'name' => '',
+        ), $atts, 'moladin_shortcode');
+
+        $shortcodeName = $newAtts['name'];
+
+        $customShortcode = MOLADINPLUGIN_DIR_ROOT . "shortcodes/{$shortcodeName}/index.php";
+
+        if (file_exists($customShortcode)) {
+            ob_start();  
+            include($customShortcode);  
+            return ob_get_clean(); 
+        }
+
+        return "Shortcode not found!";
+    }
 }
 
-add_shortcode('moladin_shortcode', 'load_shortcode');
+new Moladin_Shortcode_Loader();

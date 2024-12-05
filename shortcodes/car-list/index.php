@@ -1,5 +1,33 @@
+<?php
+if (taxonomy_exists('product_cat')) {
+    $term = get_queried_object();
+    // var_dump($term);
+    // echo $term->name;
+}
+
+?>
+
 <div class="container">
-    <div class="relative flex h-full gap-10 p-4">
+    <div class="">
+        <div class="mb-[24px]">
+            <div>Partner Moladin</div>
+            <h1 class="text-2xl font-bold mb-2">Anugerah Dealer Terpercaya</h1>
+        </div>
+        <div class="flex justify-between text-gray-600 p-[24px] border border-[#BFBFBF] rounded-[8px]">
+            <div>
+                <span class="block">Jumlah transaksi</span>
+                <span class="text-xl font-bold">121 transaksi di Molaidin</span>
+            </div>
+            <div>
+                <span class="block">Bergabung sejak</span>
+                <span class="text-gray-800">Desember 2022</span>
+            </div>
+        </div>
+        <div>
+            Semua Listing Anugerah Dealer Terpecaya
+        </div>
+    </div>
+    <div class="relative flex h-full gap-10">
         <!-- Filter Sidebar -->
         <div class="w-[320px]">
             <?php include(MOLADINPLUGIN_DIR_ROOT . 'shortcodes/car-list/components/sidebar-filter.php') ?>
@@ -15,7 +43,7 @@
 
                 </div>
             </div>
-            <div class="flex items-center justify-center min-h-screen bg-gray-100">
+            <div class="flex items-center justify-center">
                 <button id="load-more"
                     class="border border-orange-500 text-orange-500 font-medium py-2 px-4 rounded hover:bg-orange-100">
                     Muat Lebih Banyak
@@ -48,9 +76,11 @@
                 },
                 success: function (response) {
                     if (response) {
-                        $('#products').append(response);
-                    } else {
-                        $('#load-more').prop('disabled', true).text('Tidak ada produk lagi');
+                        if (response.status === "error") {
+                            $('#load-more').prop('disabled', true).text('Tidak ada produk lagi');
+                        } else {
+                            $('#products').append(response);
+                        }
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
