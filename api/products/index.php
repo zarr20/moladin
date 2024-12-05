@@ -1,7 +1,7 @@
 <?php
 add_action('rest_api_init', function () {
     register_rest_route('ajax', '/products', [
-        'methods' => 'GET',
+        'methods' => 'POST',
         'callback' => 'get_products',
         'permission_callback' => '__return_true',
     ]);

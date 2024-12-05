@@ -28,7 +28,7 @@
 
             $.ajax({
                 url: 'http://localhost/moladin/gwc-wp/wp-json/ajax/products',
-                type: 'GET',
+                type: 'POST',
                 data: {
                     data: encodedData,
                 },
